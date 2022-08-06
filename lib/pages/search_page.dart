@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instargram_clone/create_page.dart';
+import 'package:instargram_clone/pages/create_page.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);

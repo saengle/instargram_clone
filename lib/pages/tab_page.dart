@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:instargram_clone/account_page.dart';
-import 'package:instargram_clone/home_page.dart';
-import 'package:instargram_clone/search_page.dart';
+import 'package:instargram_clone/pages/account_page.dart';
+import 'package:instargram_clone/pages/home_page.dart';
+import 'package:instargram_clone/pages/search_page.dart';
 
 class TabPage extends StatefulWidget {
   const TabPage({Key? key}) : super(key: key);

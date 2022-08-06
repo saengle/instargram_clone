@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreatePage extends StatefulWidget {
   const CreatePage({Key? key}) : super(key: key);
@@ -11,7 +10,7 @@ class CreatePage extends StatefulWidget {
 
 class _CreatePageState extends State<CreatePage> {
   final textEditingController = TextEditingController();
-  File? _image;
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void dispose() {
@@ -25,10 +24,9 @@ class _CreatePageState extends State<CreatePage> {
       appBar: _buildAppBar(),
       body: _buildBody(),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
-        onPressed: () {},
-        child: Icon(Icons.add_a_photo)
-      ),
+          backgroundColor: Colors.blue,
+          onPressed: _getImage(),
+          child: Icon(Icons.add_a_photo)),
     );
   }
 
@@ -49,8 +47,11 @@ class _CreatePageState extends State<CreatePage> {
       ],
     );
   }
+
+  _getImage() async {
+    Future image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+    _image = image;
+    });
+  }
 }
-
-
-
-

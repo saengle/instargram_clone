@@ -1,6 +1,6 @@
 # instargram_clone
 
-A new Flutter project.
+Flutter project - Instargram Clone.
 
 ## Getting Started
 

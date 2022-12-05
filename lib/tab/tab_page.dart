@@ -15,9 +15,9 @@ class _TabPageState extends State<TabPage> {
   int _currentIndex = 0;
 
   final List _pages = const [
-    AccountPage(),
     HomePage(),
     SearchPage(),
+    AccountPage(),
   ];
 
   @override

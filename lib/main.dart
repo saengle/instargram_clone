@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:instargram_clone/pages/root_page.dart';
+
+import 'tab/tab_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,9 +17,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         primaryColor: Colors.white,
         secondaryHeaderColor: Colors.black,
-
       ),
-      home: const RootPage(),
+      home: const TabPage(),
     );
   }
 }

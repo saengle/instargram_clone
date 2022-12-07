@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instargram_clone/create/create_page.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -13,7 +14,14 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {}),
+      floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const CreatePage()),
+            );
+          }),
       appBar: AppBar(
         title: const Text('Search Page'),
       ),

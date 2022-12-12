@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:instargram_clone/firebase_options.dart';
+import 'auth/auth_gate.dart';
 
 import 'tab/tab_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 
@@ -18,7 +24,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         secondaryHeaderColor: Colors.black,
       ),
-      home: const TabPage(),
+      home: AuthGate(),
     );
   }
 }

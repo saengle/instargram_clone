@@ -1,15 +1,22 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'account_model.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final model = AccountModel();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Account Page'),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.exit_to_app))
+          IconButton(
+              onPressed: () {
+                model.logout();
+              },
+              icon: const Icon(Icons.exit_to_app))
         ],
       ),
       body: Padding(

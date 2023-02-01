@@ -49,9 +49,10 @@ class SearchPage extends StatelessWidget {
 
               return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 1.0,
-                    crossAxisSpacing: 1.0),
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 1.0,
+                  crossAxisSpacing: 1.0,
+                ),
                 itemCount: posts.length,
                 itemBuilder: (BuildContext context, int index) {
                   final post = posts[index];
@@ -60,12 +61,16 @@ class SearchPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => DetailPostPage(
-                                    post: post,
-                                  )),
+                            builder: (context) => DetailPostPage(
+                              post: post,
+                            ),
+                          ),
                         );
                       },
-                      child: Image.network(post.imageUrl, fit: BoxFit.cover));
+                      child: Hero(
+                          tag: post.id,
+                          child:
+                              Image.network(post.imageUrl, fit: BoxFit.cover)));
                 },
               );
             }),

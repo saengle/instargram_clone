@@ -4,9 +4,14 @@ import 'package:flutterfire_ui/auth.dart';
 
 import '../tab/tab_page.dart';
 
-class AuthGate extends StatelessWidget {
+class AuthGate extends StatefulWidget {
   const AuthGate({Key? key}) : super(key: key);
 
+  @override
+  State<AuthGate> createState() => _AuthGateState();
+}
+
+class _AuthGateState extends State<AuthGate> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
@@ -15,10 +20,13 @@ class AuthGate extends StatelessWidget {
         // ...
         //데이터가 없다면 if 아래 수행해라.
         if (!snapshot.hasData) {
-          return const SignInScreen(
+          return SignInScreen(
             providerConfigs: [
               EmailProviderConfiguration(),
             ],
+            headerBuilder: (context, constraints, _) {
+              return const Text('Instagram Clone');
+            },
           );
         }
 

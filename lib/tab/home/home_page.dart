@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'home_model.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final model = HomeModel();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home Page'),
@@ -23,18 +26,18 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    const SizedBox(
+                    SizedBox(
                       height: 80,
                       width: 80,
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            'https://img.hankyung.com/photo/202203/01.29461103.1.jpg'),
+                        backgroundImage:
+                            NetworkImage(model.getProfileImageUrl()),
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text('taeri@test.com'),
+                    Text(model.getEmail()),
                     const SizedBox(height: 8),
-                    const Text('닉네임'),
+                    Text(model.getNickName()),
                     const SizedBox(height: 8),
                     Row(
                       mainAxisSize: MainAxisSize.min,

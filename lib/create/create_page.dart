@@ -13,19 +13,40 @@ class CreatePage extends StatefulWidget {
 class _CreatePageState extends State<CreatePage> {
   final model = CreateModel();
 
+  final _titleTextController = TextEditingController();
+
   File? _image;
+
+  @override
+  void dispose() {
+    _titleTextController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('새 게시물'),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.send))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                if (_titleTextController.text.isNotEmpty && _image != null) {
+                  model.uploadPost(
+                    _titleTextController.text,
+                    _image!,
+                  );
+                  Navigator.pop(context);
+                }
+              },
+              icon: const Icon(Icons.send))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             TextField(
+              controller: _titleTextController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),

@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:instargram_clone/create/create_page.dart';
+import 'package:instargram_clone/domain/post.dart';
+import 'package:instargram_clone/tab/search/search_model.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -13,6 +16,7 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = SearchModel();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
@@ -27,15 +31,32 @@ class SearchPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(2.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, mainAxisSpacing: 1.0, crossAxisSpacing: 1.0),
-          itemCount: _urls.length,
-          itemBuilder: (BuildContext context, int index) {
-            final url = _urls[index];
-            return Image.network(url, fit: BoxFit.cover);
-          },
-        ),
+        child: StreamBuilder<QuerySnapshot<Post>>(
+            stream: model.postsStream,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return const Text('알 수 없는 에러');
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              List<Post> posts =
+                  snapshot.data!.docs.map((e) => e.data()).toList();
+
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 1.0,
+                    crossAxisSpacing: 1.0),
+                itemCount: posts.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final post = posts[index];
+                  return Image.network(post.imageUrl, fit: BoxFit.cover);
+                },
+              );
+            }),
       ),
     );
   }

@@ -17,6 +17,8 @@ class _CreatePageState extends State<CreatePage> {
 
   File? _image;
 
+  bool isLoading = false;
+
   @override
   void dispose() {
     _titleTextController.dispose();
@@ -30,13 +32,24 @@ class _CreatePageState extends State<CreatePage> {
         title: const Text('새 게시물'),
         actions: [
           IconButton(
-              onPressed: () {
+              onPressed: () async {
                 if (_titleTextController.text.isNotEmpty && _image != null) {
-                  model.uploadPost(
+                  setState(() {
+                    isLoading = true;
+                  });
+
+                  await model.uploadPost(
                     _titleTextController.text,
                     _image!,
                   );
-                  Navigator.pop(context);
+
+                  setState(() {
+                    isLoading = false;
+                  });
+                  //async 안에서 context가 들어가는 코드를 사용하면 밑에 에러 표시줄이 나타나는데 그것을 방지하려면 아래의 mounted를 사용하면 됌.
+                  if (mounted) {
+                    Navigator.pop(context);
+                  }
                 }
               },
               icon: const Icon(Icons.send))
@@ -58,7 +71,7 @@ class _CreatePageState extends State<CreatePage> {
               ),
             ),
             const SizedBox(height: 20),
-            // const SizedBox(width: 300, child: Placeholder()),
+            if (isLoading) const CircularProgressIndicator(),
             ElevatedButton(
                 onPressed: () async {
                   _image = await model.getImage();

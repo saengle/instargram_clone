@@ -64,9 +64,18 @@ class AccountPage extends StatelessWidget {
                   ],
                 ),
                 Column(
-                  children: const [
-                    Text('3', style: TextStyle(fontSize: 18)),
-                    Text('게시물', style: TextStyle(fontSize: 18))
+                  children: [
+                    StreamBuilder<QuerySnapshot<Post>>(
+                        stream: model.myPostsStreamOnly,
+                        builder: (context, snapshot) {
+                          int _count = 0;
+                          if (snapshot.hasData) {
+                            _count = snapshot.data!.size;
+                          }
+                          return Text('$_count',
+                              style: const TextStyle(fontSize: 18));
+                        }),
+                    const Text('게시물', style: TextStyle(fontSize: 18))
                   ],
                 ),
                 Column(

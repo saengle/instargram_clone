@@ -4,6 +4,8 @@ import 'package:instargram_clone/create/create_page.dart';
 import 'package:instargram_clone/domain/post.dart';
 import 'package:instargram_clone/tab/search/search_model.dart';
 
+import '../../detail_post/detail_post_page.dart';
+
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
 
@@ -53,7 +55,17 @@ class SearchPage extends StatelessWidget {
                 itemCount: posts.length,
                 itemBuilder: (BuildContext context, int index) {
                   final post = posts[index];
-                  return Image.network(post.imageUrl, fit: BoxFit.cover);
+                  return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DetailPostPage(
+                                    post: post,
+                                  )),
+                        );
+                      },
+                      child: Image.network(post.imageUrl, fit: BoxFit.cover));
                 },
               );
             }),
